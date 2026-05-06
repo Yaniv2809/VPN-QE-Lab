@@ -1,0 +1,44 @@
+networks:
+  wan:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+  lan-a:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/24
+  lan-b:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.2.0.0/24
+
+services:
+  site-a:
+    build:
+      context: ./site-a
+    container_name: vpn-site-a
+    networks:
+      wan:
+        ipv4_address: 172.20.0.10
+      lan-a:
+        ipv4_address: 10.1.0.1
+    privileged: true
+    restart: unless-stopped
+
+  site-b:
+    build:
+      context: ./site-b
+    container_name: vpn-site-b
+    networks:
+      wan:
+        ipv4_address: 172.20.0.20
+      lan-b:
+        ipv4_address: 10.2.0.1
+    privileged: true
+    restart: unless-stopped
