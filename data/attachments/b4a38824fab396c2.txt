@@ -3,5 +3,5 @@ Bypass LAN 100.64.0.0/24:  100.64.0.0/24 === 100.64.0.0/24 PASS
 Bypass LAN 100.64.2.0/24:  100.64.2.0/24 === 100.64.2.0/24 PASS
 Security Associations (1 up, 0 connecting):
 site-to-site[1]: ESTABLISHED 28 seconds ago, 100.64.0.20[site-b]...100.64.0.10[site-a]
-site-to-site{1}:  INSTALLED, TUNNEL, reqid 1, ESP in UDP SPIs: c87ab3e9_i c30672bc_o
+site-to-site{1}:  INSTALLED, TUNNEL, reqid 1, ESP in UDP SPIs: ca1496cb_i c54d4678_o
 site-to-site{1}:   100.64.2.0/24 === 100.64.1.0/24

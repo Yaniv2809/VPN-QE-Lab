@@ -1,0 +1,16 @@
+src 100.64.0.10 dst 100.64.0.20
+	proto esp spi 0xca1496cb reqid 1 mode tunnel
+	replay-window 0 flag af-unspec
+	auth-trunc hmac(sha256) 0x3d913a5bbb0dd7ac2de3eba47c11d3e54587cf58f987669ade94550b142bf035 128
+	enc cbc(aes) 0x87baf7ba30371fdfba517525d25e5fb8acbb35effa8435193fe9b7b37af664da
+	encap type espinudp sport 4500 dport 4500 addr 0.0.0.0
+	lastused 2026-05-07 19:55:43
+	anti-replay context: seq 0x0, oseq 0x8, bitmap 0x00000000
+src 100.64.0.20 dst 100.64.0.10
+	proto esp spi 0xc54d4678 reqid 1 mode tunnel
+	replay-window 32 flag af-unspec
+	auth-trunc hmac(sha256) 0xe01753a259370e8ea708a9252d20f9d2858d7b3c7916da4e168db713b1f3c3fa 128
+	enc cbc(aes) 0xcc4ccbb6049a01eaa41269b7805c8536f7e11165ca74591d52667cd96def4978
+	encap type espinudp sport 4500 dport 4500 addr 0.0.0.0
+	lastused 2026-05-07 19:55:43
+	anti-replay context: seq 0x8, oseq 0x0, bitmap 0x000000ff
