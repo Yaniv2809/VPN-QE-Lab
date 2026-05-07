@@ -1,0 +1,22 @@
+Status of IKE charon daemon (strongSwan 5.9.12, Linux 6.17.0-1010-azure, x86_64):
+  uptime: 15 seconds, since May 07 19:48:40 2026
+  worker threads: 11 of 16 idle, 5/0/0/0 working, job queue: 0/0/0/0, scheduled: 3
+  loaded plugins: charon aesni mgf1 random nonce x509 revocation constraints pubkey pkcs1 pkcs7 pkcs12 pgp dnskey sshkey pem openssl pkcs8 fips-prf gmp curve25519 xcbc cmac kdf gcm drbg curl sqlite attr kernel-netlink resolve socket-default bypass-lan farp stroke vici updown eap-identity eap-sim eap-aka eap-aka-3gpp2 eap-simaka-pseudonym eap-simaka-reauth eap-md5 eap-mschapv2 eap-radius eap-tls xauth-generic xauth-eap dhcp unity counters
+Listening IP addresses:
+  100.64.1.1
+  100.64.0.10
+Connections:
+site-to-site:  100.64.0.10...100.64.0.20  IKEv2, dpddelay=10s
+site-to-site:   local:  [site-a] uses pre-shared key authentication
+site-to-site:   remote: [site-b] uses pre-shared key authentication
+site-to-site:   child:  100.64.1.0/24 === 100.64.2.0/24 TUNNEL, dpdaction=start
+Shunted Connections:
+Bypass LAN 100.64.0.0/24:  100.64.0.0/24 === 100.64.0.0/24 PASS
+Bypass LAN 100.64.1.0/24:  100.64.1.0/24 === 100.64.1.0/24 PASS
+Security Associations (1 up, 0 connecting):
+site-to-site[1]: ESTABLISHED 15 seconds ago, 100.64.0.10[site-a]...100.64.0.20[site-b]
+site-to-site[1]: IKEv2 SPIs: 518f0cc26458752c_i* 930508735018d2e9_r, pre-shared key reauthentication in 55 minutes
+site-to-site[1]: IKE proposal: AES_CBC_256/HMAC_SHA2_256_128/PRF_HMAC_SHA2_256/MODP_2048
+site-to-site{1}:  INSTALLED, TUNNEL, reqid 1, ESP in UDP SPIs: c30672bc_i c87ab3e9_o
+site-to-site{1}:  AES_CBC_256/HMAC_SHA2_256_128, 672 bytes_i (8 pkts, 0s ago), 672 bytes_o (8 pkts, 0s ago), rekeying in 14 minutes
+site-to-site{1}:   100.64.1.0/24 === 100.64.2.0/24

@@ -1,4 +1,4 @@
 "Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
-"VPN Quality Gate","End-to-End Routing and NAT Traversal","","0","3","0","0","0"
-"VPN Quality Gate","Traffic Encryption — ESP / NAT-T","","0","2","0","0","0"
-"VPN Quality Gate","Tunnel Establishment — IKE Phase 1 & 2","","0","4","0","0","0"
+"VPN Quality Gate","Tunnel Establishment — IKE Phase 1 & 2","","0","0","4","0","0"
+"VPN Quality Gate","Traffic Encryption — ESP / NAT-T","","0","0","2","0","0"
+"VPN Quality Gate","End-to-End Routing and NAT Traversal","","1","0","2","0","0"
