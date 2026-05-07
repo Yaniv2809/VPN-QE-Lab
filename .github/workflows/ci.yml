@@ -25,6 +25,12 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      - name: Show host network state (debug)
+        run: |
+          echo "=== IP interfaces ===" && ip addr show
+          echo "=== Routes ===" && ip route show
+          echo "=== Docker networks ===" && docker network ls
+
       - name: Run VPN Quality Gate
         run: pytest tests/ -v --alluredir=allure-results
         timeout-minutes: 10

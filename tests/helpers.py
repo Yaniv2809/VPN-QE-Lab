@@ -11,11 +11,11 @@ class VPNLab:
     SITE_A = "vpn-site-a"
     SITE_B = "vpn-site-b"
 
-    SITE_A_WAN = "192.168.200.10"
-    SITE_B_WAN = "192.168.200.20"
+    SITE_A_WAN = "100.64.0.10"
+    SITE_B_WAN = "100.64.0.20"
 
-    SITE_A_LAN = "192.168.201.1"
-    SITE_B_LAN = "192.168.202.1"
+    SITE_A_LAN = "100.64.1.1"
+    SITE_B_LAN = "100.64.2.1"
 
     @staticmethod
     def exec(

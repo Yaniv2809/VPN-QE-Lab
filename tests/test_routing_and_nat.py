@@ -11,8 +11,8 @@ class TestRoutingAndNAT:
 
     @allure.title("Ping Site A LAN → Site B LAN (0% packet loss)")
     @allure.description(
-        "Sends 4 ICMP echo requests from Site A's LAN IP (192.168.201.1) to Site B's LAN IP "
-        "(192.168.202.1) through the VPN tunnel. Source is pinned to 192.168.201.1 via -I to "
+        "Sends 4 ICMP echo requests from Site A's LAN IP (100.64.1.1) to Site B's LAN IP "
+        "(100.64.2.1) through the VPN tunnel. Source is pinned to 100.64.1.1 via -I to "
         "match the leftsubnet policy and trigger XFRM encryption."
     )
     @allure.severity(allure.severity_level.CRITICAL)
@@ -32,7 +32,7 @@ class TestRoutingAndNAT:
     @allure.title("Ping Site B LAN → Site A LAN (bidirectional validation)")
     @allure.description(
         "Validates the reverse direction: 4 ICMP echo requests from Site B's LAN IP "
-        "(192.168.202.1) to Site A's LAN IP (192.168.201.1). A one-directional pass is insufficient "
+        "(100.64.2.1) to Site A's LAN IP (100.64.1.1). A one-directional pass is insufficient "
         "evidence of a healthy tunnel — both directions must work."
     )
     @allure.severity(allure.severity_level.CRITICAL)
