@@ -24,6 +24,11 @@ def vpn_lab_session(lab: VPNLab) -> None:
 
 
 def _await_tunnel(lab: VPNLab, timeout: int) -> None:
+    # Give strongSwan time to fully initialize, then trigger explicitly
+    # in case auto=start did not fire inside the container.
+    time.sleep(8)
+    lab.exec(VPNLab.SITE_A, "ipsec up site-to-site", check=False, timeout=30)
+
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
