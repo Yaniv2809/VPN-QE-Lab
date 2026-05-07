@@ -1,0 +1,9 @@
+PING 100.64.2.1 (100.64.2.1) from 100.64.1.1 : 56(84) bytes of data.
+64 bytes from 100.64.2.1: icmp_seq=1 ttl=64 time=0.127 ms
+64 bytes from 100.64.2.1: icmp_seq=2 ttl=64 time=0.078 ms
+64 bytes from 100.64.2.1: icmp_seq=3 ttl=64 time=0.077 ms
+64 bytes from 100.64.2.1: icmp_seq=4 ttl=64 time=0.156 ms
+
+--- 100.64.2.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3063ms
+rtt min/avg/max/mdev = 0.077/0.109/0.156/0.033 ms
