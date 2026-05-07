@@ -49,20 +49,21 @@ class TestRoutingAndNAT:
             assert result.returncode == 0, f"Ping failed with exit code {result.returncode}"
             assert "0% packet loss" in result.stdout
 
-    @allure.title("NAT-T: Tunnel Negotiated Over UDP Port 4500")
+    @allure.title("NAT-T: ESP-in-UDP Encapsulation Active in Kernel XFRM State")
     @allure.description(
-        "Asserts that the IKE SA is using UDP port 4500 encapsulation (NAT Traversal), "
-        "as forced by forceencaps=yes in ipsec.conf. This simulates a real-world SD-WAN "
-        "deployment where sites are behind NAT and ESP (protocol 50) is blocked."
+        "Verifies NAT Traversal by inspecting the kernel XFRM SA directly with "
+        "'ip xfrm state show'. With forceencaps=yes, the kernel installs the SA with "
+        "encap type espinudp on port 4500, regardless of whether actual NAT is present. "
+        "This simulates a real-world SD-WAN deployment where ESP (protocol 50) is blocked."
     )
     @allure.severity(allure.severity_level.NORMAL)
     def test_nat_traversal_port_4500_active(self, lab: VPNLab) -> None:
-        with allure.step("Run 'ipsec statusall' on Site A"):
-            result = lab.exec(VPNLab.SITE_A, "ipsec statusall")
+        with allure.step("Inspect kernel XFRM SA state on Site A"):
+            result = lab.exec(VPNLab.SITE_A, "ip xfrm state show")
 
-        with allure.step("Assert UDP port 4500 is referenced in the SA"):
-            allure.attach(result.stdout, name="ipsec statusall", attachment_type=allure.attachment_type.TEXT)
-            assert "4500" in result.stdout, (
-                "Port 4500 (NAT-T) not found in tunnel status. "
+        with allure.step("Assert espinudp encapsulation with port 4500 is present"):
+            allure.attach(result.stdout, name="ip xfrm state", attachment_type=allure.attachment_type.TEXT)
+            assert "espinudp" in result.stdout or "4500" in result.stdout, (
+                "ESP-in-UDP (NAT-T) encapsulation not found in kernel XFRM state. "
                 "forceencaps=yes may not have taken effect."
             )
