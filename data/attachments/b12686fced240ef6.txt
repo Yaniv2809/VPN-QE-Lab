@@ -1,0 +1,128 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 729B done
+#1 DONE 0.0s
+
+#2 [site-a internal] load build definition from Dockerfile
+#2 transferring dockerfile: 408B done
+#2 DONE 0.0s
+
+#3 [site-b internal] load build definition from Dockerfile
+#3 transferring dockerfile: 408B done
+#3 DONE 0.0s
+
+#4 [auth] library/alpine:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [site-b internal] load metadata for docker.io/library/alpine:3.19
+#5 DONE 0.5s
+
+#6 [site-b internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.0s
+
+#7 [site-a internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.0s
+
+#8 [site-b internal] load build context
+#8 transferring context: 899B done
+#8 DONE 0.0s
+
+#9 [site-a internal] load build context
+#9 transferring context: 901B done
+#9 DONE 0.0s
+
+#10 [site-b 1/6] FROM docker.io/library/alpine:3.19@sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1
+#10 resolve docker.io/library/alpine:3.19@sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1 done
+#10 extracting sha256:17a39c0ba978cc27001e9c56a480f98106e1ab74bd56eb302f9fd4cf758ea43f
+#10 extracting sha256:17a39c0ba978cc27001e9c56a480f98106e1ab74bd56eb302f9fd4cf758ea43f 0.1s done
+#10 sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1 8.08kB / 8.08kB done
+#10 sha256:b58899f069c47216f6002a6850143dc6fae0d35eb8b0df9300bbe6327b9c2171 1.02kB / 1.02kB done
+#10 sha256:83b2b6703a620bf2e001ab57f7adc414d891787b3c59859b1b62909e48dd2242 581B / 581B done
+#10 sha256:17a39c0ba978cc27001e9c56a480f98106e1ab74bd56eb302f9fd4cf758ea43f 3.42MB / 3.42MB 0.1s done
+#10 DONE 0.2s
+
+#11 [site-b 2/6] RUN apk add --no-cache     strongswan     iputils     iproute2     tcpdump     bash
+#11 0.146 fetch https://dl-cdn.alpinelinux.org/alpine/v3.19/main/x86_64/APKINDEX.tar.gz
+#11 0.244 fetch https://dl-cdn.alpinelinux.org/alpine/v3.19/community/x86_64/APKINDEX.tar.gz
+#11 0.479 (1/31) Installing ncurses-terminfo-base (6.4_p20231125-r0)
+#11 0.486 (2/31) Installing libncursesw (6.4_p20231125-r0)
+#11 0.492 (3/31) Installing readline (8.2.1-r2)
+#11 0.496 (4/31) Installing bash (5.2.21-r0)
+#11 0.510 Executing bash-5.2.21-r0.post-install
+#11 0.513 (5/31) Installing libcap2 (2.69-r1)
+#11 0.516 (6/31) Installing zstd-libs (1.5.5-r8)
+#11 0.524 (7/31) Installing libelf (0.190-r1)
+#11 0.621 (8/31) Installing libmnl (1.0.5-r2)
+#11 0.719 (9/31) Installing iproute2-minimal (6.6.0-r0)
+#11 0.729 (10/31) Installing libxtables (1.8.10-r3)
+#11 0.826 (11/31) Installing iproute2-tc (6.6.0-r0)
+#11 0.834 (12/31) Installing iproute2-ss (6.6.0-r0)
+#11 0.838 (13/31) Installing iproute2 (6.6.0-r0)
+#11 0.847 Executing iproute2-6.6.0-r0.post-install
+#11 0.850 (14/31) Installing iputils-arping (20221126-r2)
+#11 0.857 (15/31) Installing iputils-clockdiff (20221126-r2)
+#11 0.861 (16/31) Installing iputils-ping (20221126-r2)
+#11 0.865 (17/31) Installing iputils-tracepath (20221126-r2)
+#11 0.868 (18/31) Installing iputils (20221126-r2)
+#11 0.871 (19/31) Installing ca-certificates (20250911-r0)
+#11 0.894 (20/31) Installing brotli-libs (1.1.0-r1)
+#11 0.902 (21/31) Installing c-ares (1.27.0-r0)
+#11 0.906 (22/31) Installing libunistring (1.1-r2)
+#11 0.917 (23/31) Installing libidn2 (2.3.4-r4)
+#11 0.921 (24/31) Installing nghttp2-libs (1.58.0-r0)
+#11 0.924 (25/31) Installing libpsl (0.21.5-r0)
+#11 0.927 (26/31) Installing libcurl (8.14.1-r2)
+#11 0.937 (27/31) Installing gmp (6.3.0-r0)
+#11 0.942 (28/31) Installing sqlite-libs (3.44.2-r2)
+#11 0.957 (29/31) Installing strongswan (5.9.12-r0)
+#11 0.962 Executing strongswan-5.9.12-r0.pre-install
+#11 1.008 (30/31) Installing libpcap (1.10.4-r1)
+#11 1.107 (31/31) Installing tcpdump (4.99.4-r1)
+#11 1.211 Executing busybox-1.36.1-r20.trigger
+#11 1.216 Executing ca-certificates-20250911-r0.trigger
+#11 1.258 OK: 24 MiB in 46 packages
+#11 DONE 1.7s
+
+#12 [site-b 3/6] COPY ipsec.conf    /etc/ipsec.conf
+#12 DONE 0.0s
+
+#13 [site-a 3/6] COPY ipsec.conf    /etc/ipsec.conf
+#13 DONE 0.0s
+
+#14 [site-b 4/6] COPY ipsec.secrets /etc/ipsec.secrets
+#14 DONE 0.0s
+
+#15 [site-a 4/6] COPY ipsec.secrets /etc/ipsec.secrets
+#15 DONE 0.0s
+
+#16 [site-b 5/6] COPY entrypoint.sh /entrypoint.sh
+#16 DONE 0.0s
+
+#17 [site-a 5/6] COPY entrypoint.sh /entrypoint.sh
+#17 DONE 0.0s
+
+#18 [site-b 6/6] RUN chmod 600 /etc/ipsec.secrets &&     chmod +x /entrypoint.sh &&     sed -i 's/\r//' /entrypoint.sh
+#18 DONE 0.1s
+
+#19 [site-a 6/6] RUN chmod 600 /etc/ipsec.secrets &&     chmod +x /entrypoint.sh &&     sed -i 's/\r//' /entrypoint.sh
+#19 DONE 0.2s
+
+#20 [site-a] exporting to image
+#20 exporting layers
+#20 exporting layers 0.4s done
+#20 writing image sha256:9e946e639f941d6e60e315a815936b19c5d0fbaeb4c06e73b2d810eb413371ae done
+#20 naming to docker.io/library/docker-site-a done
+#20 DONE 0.4s
+
+#21 [site-b] exporting to image
+#21 exporting layers 0.5s done
+#21 writing image sha256:01242c9f015ebdee394f22d879ee7da929c6a4cd0509fed392513e053574d175 done
+#21 naming to docker.io/library/docker-site-b done
+#21 DONE 0.5s
+
+#22 [site-a] resolving provenance for metadata file
+#22 DONE 0.0s
+
+#23 [site-b] resolving provenance for metadata file
+#23 DONE 0.0s

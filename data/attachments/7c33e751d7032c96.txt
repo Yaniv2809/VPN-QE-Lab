@@ -1,0 +1,15 @@
+ site-a  Built
+ site-b  Built
+ Network docker_wan  Creating
+ Network docker_wan  Created
+ Network docker_lan-b  Creating
+ Network docker_lan-b  Created
+ Network docker_lan-a  Creating
+ Network docker_lan-a  Created
+ Container vpn-site-a  Creating
+ Container vpn-site-b  Creating
+ Container vpn-site-a  Created
+ Container vpn-site-b  Created
+ Container vpn-site-b  Starting
+ Container vpn-site-a  Starting
+Error response from daemon: failed to set up container networking: Address already in use
