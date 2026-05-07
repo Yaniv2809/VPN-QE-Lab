@@ -54,11 +54,11 @@ def _install_cross_site_routes(lab: VPNLab) -> None:
     """
     lab.exec(
         VPNLab.SITE_A,
-        f"ip route replace 10.2.0.0/24 via {VPNLab.SITE_B_WAN} src {VPNLab.SITE_A_LAN}",
+        f"ip route replace 192.168.202.0/24 via {VPNLab.SITE_B_WAN} src {VPNLab.SITE_A_LAN}",
         check=False,
     )
     lab.exec(
         VPNLab.SITE_B,
-        f"ip route replace 10.1.0.0/24 via {VPNLab.SITE_A_WAN} src {VPNLab.SITE_B_LAN}",
+        f"ip route replace 192.168.201.0/24 via {VPNLab.SITE_A_WAN} src {VPNLab.SITE_B_LAN}",
         check=False,
     )

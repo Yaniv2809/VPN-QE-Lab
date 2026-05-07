@@ -80,7 +80,7 @@ class TestTrafficEncryption:
     @allure.title("No Plaintext ICMP Visible Between WAN IPs During Cross-Site Ping")
     @allure.description(
         "The critical encryption test: captures ICMP packets between the two WAN IPs "
-        "(172.20.0.10 ↔ 172.20.0.20) while pinging. If the VPN is working correctly, "
+        "(192.168.200.10 ↔ 192.168.200.20) while pinging. If the VPN is working correctly, "
         "zero ICMP packets should appear — all payload is encrypted inside UDP 4500. "
         "Any ICMP hit here is a security violation (traffic leak)."
     )

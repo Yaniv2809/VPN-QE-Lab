@@ -60,7 +60,7 @@ class TestVPNEstablishment:
             assert "ESTABLISHED" in result_a.stdout, "Site A does not see an established tunnel"
             assert "ESTABLISHED" in result_b.stdout, "Site B does not see an established tunnel"
 
-    @allure.title("Tunnel Covers the Correct Subnets (10.1.0.0/24 ↔ 10.2.0.0/24)")
+    @allure.title("Tunnel Covers the Correct Subnets (192.168.201.0/24 ↔ 192.168.202.0/24)")
     @allure.description(
         "Confirms the negotiated traffic selectors match the intended subnets. "
         "A wrong selector means the tunnel exists but protects the wrong traffic."
@@ -71,5 +71,5 @@ class TestVPNEstablishment:
             result = lab.exec(VPNLab.SITE_A, "ipsec statusall")
 
         with allure.step("Assert both subnets appear in the SA output"):
-            assert "10.1.0.0/24" in result.stdout
-            assert "10.2.0.0/24" in result.stdout
+            assert "192.168.201.0/24" in result.stdout
+            assert "192.168.202.0/24" in result.stdout

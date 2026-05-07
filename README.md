@@ -10,19 +10,19 @@ A self-contained testing laboratory that spins up two IPSec VPN gateways in Dock
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        WAN (172.20.0.0/24)                      │
+│                     WAN (192.168.200.0/24)                      │
 │                                                                 │
 │   ┌────────────────┐   IPSec Tunnel (UDP 4500)  ┌────────────────┐ │
 │   │   vpn-site-a   │◄─────────────────────────►│   vpn-site-b   │ │
-│   │  172.20.0.10   │                            │  172.20.0.20   │ │
+│   │ 192.168.200.10 │                            │ 192.168.200.20 │ │
 │   └───────┬────────┘                            └───────┬────────┘ │
 └───────────┼─────────────────────────────────────────────┼─────────┘
             │                                             │
-     LAN-A (10.1.0.0/24)                         LAN-B (10.2.0.0/24)
-      Site A: 10.1.0.1                             Site B: 10.2.0.1
+     LAN-A (192.168.201.0/24)                   LAN-B (192.168.202.0/24)
+      Site A: 192.168.201.1                       Site B: 192.168.202.1
 ```
 
-All cross-site traffic (10.1.x ↔ 10.2.x) is encrypted inside the tunnel. The WAN interface only carries UDP port 4500 (NAT-T encapsulated ESP) — zero plaintext payload.
+All cross-site traffic (192.168.201.x ↔ 192.168.202.x) is encrypted inside the tunnel. The WAN interface only carries UDP port 4500 (NAT-T encapsulated ESP) — zero plaintext payload.
 
 ---
 
@@ -47,7 +47,7 @@ When complete, both sides have a shared symmetric key derived via Diffie-Hellman
 
 Phase 2 creates the actual **IPSec Child SA** — the tunnel that encrypts traffic.
 
-- The kernel installs **XFRM policies**: any packet matching `src 10.1.0.0/24 → dst 10.2.0.0/24` is handed to the ESP engine.
+- The kernel installs **XFRM policies**: any packet matching `src 192.168.201.0/24 → dst 192.168.202.0/24` is handed to the ESP engine.
 - ESP wraps each IP packet: `[IP][UDP:4500][ESP header][encrypted original packet][ESP trailer]`.
 - The result is `INSTALLED` in `ipsec statusall`.
 
@@ -105,7 +105,7 @@ docker compose -f docker/docker-compose.yml up -d --build
 docker exec vpn-site-a ipsec statusall
 
 # Ping across the tunnel
-docker exec vpn-site-a ping -c 4 -I 10.1.0.1 10.2.0.1
+docker exec vpn-site-a ping -c 4 -I 192.168.201.1 192.168.202.1
 
 # Live capture on WAN interface
 docker exec vpn-site-a tcpdump -i any -n udp port 4500
@@ -125,14 +125,14 @@ docker compose -f docker/docker-compose.yml down -v
 | `test_ike_phase1_established` | `ipsec statusall` on Site A contains `ESTABLISHED` |
 | `test_ike_phase2_child_sa_installed` | `ipsec statusall` contains `INSTALLED` (Child SA in XFRM) |
 | `test_both_sites_see_established_tunnel` | Both gateways independently report `ESTABLISHED` |
-| `test_correct_subnets_in_tunnel` | Traffic selectors in the SA match `10.1.0.0/24` ↔ `10.2.0.0/24` |
+| `test_correct_subnets_in_tunnel` | Traffic selectors in the SA match `192.168.201.0/24` ↔ `192.168.202.0/24` |
 
 ### `test_routing_and_nat.py` — Routing + NAT-T
 
 | Test | Asserts |
 |---|---|
-| `test_ping_site_a_to_b` | `ping -I 10.1.0.1 10.2.0.1` exits 0, output contains `0% packet loss` |
-| `test_ping_site_b_to_a` | Reverse direction: `ping -I 10.2.0.1 10.1.0.1` also passes |
+| `test_ping_site_a_to_b` | `ping -I 192.168.201.1 192.168.202.1` exits 0, output contains `0% packet loss` |
+| `test_ping_site_b_to_a` | Reverse direction: `ping -I 192.168.202.1 192.168.201.1` also passes |
 | `test_nat_traversal_port_4500_active` | `ipsec statusall` references port `4500` (NAT-T active) |
 
 ### `test_traffic_encryption.py` — ESP Verification
@@ -140,7 +140,7 @@ docker compose -f docker/docker-compose.yml down -v
 | Test | Asserts |
 |---|---|
 | `test_natt_encapsulated_traffic_on_wan` | UDP port 4500 packets are captured on WAN during cross-site ping |
-| `test_no_plaintext_icmp_between_wan_ips` | **Zero** plaintext ICMP between 172.20.0.10 ↔ 172.20.0.20 — payload is encrypted |
+| `test_no_plaintext_icmp_between_wan_ips` | **Zero** plaintext ICMP between 192.168.200.10 ↔ 192.168.200.20 — payload is encrypted |
 
 The encryption tests use `tcpdump` inside the containers via a background thread, concurrent with the ping that generates traffic.
 
@@ -164,10 +164,10 @@ The encryption tests use `tcpdump` inside the containers via a background thread
 
 | Variable | Value | Role |
 |---|---|---|
-| `SITE_A_WAN` | `172.20.0.10` | Site A WAN/tunnel endpoint |
-| `SITE_B_WAN` | `172.20.0.20` | Site B WAN/tunnel endpoint |
-| `SITE_A_LAN` | `10.1.0.1` | Site A LAN gateway (IPSec traffic selector) |
-| `SITE_B_LAN` | `10.2.0.1` | Site B LAN gateway (IPSec traffic selector) |
+| `SITE_A_WAN` | `192.168.200.10` | Site A WAN/tunnel endpoint |
+| `SITE_B_WAN` | `192.168.200.20` | Site B WAN/tunnel endpoint |
+| `SITE_A_LAN` | `192.168.201.1` | Site A LAN gateway (IPSec traffic selector) |
+| `SITE_B_LAN` | `192.168.202.1` | Site B LAN gateway (IPSec traffic selector) |
 
 ---
 

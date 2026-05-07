@@ -4,19 +4,19 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.20.0.0/24
+        - subnet: 192.168.200.0/24
   lan-a:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 10.1.0.0/24
+        - subnet: 192.168.201.0/24
   lan-b:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 10.2.0.0/24
+        - subnet: 192.168.202.0/24
 
 services:
   site-a:
@@ -25,9 +25,9 @@ services:
     container_name: vpn-site-a
     networks:
       wan:
-        ipv4_address: 172.20.0.10
+        ipv4_address: 192.168.200.10
       lan-a:
-        ipv4_address: 10.1.0.1
+        ipv4_address: 192.168.201.1
     privileged: true
     restart: unless-stopped
 
@@ -37,8 +37,8 @@ services:
     container_name: vpn-site-b
     networks:
       wan:
-        ipv4_address: 172.20.0.20
+        ipv4_address: 192.168.200.20
       lan-b:
-        ipv4_address: 10.2.0.1
+        ipv4_address: 192.168.202.1
     privileged: true
     restart: unless-stopped
