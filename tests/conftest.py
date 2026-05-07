@@ -1,10 +1,11 @@
+import subprocess
 import time
 
 import pytest
 
 from tests.helpers import VPNLab
 
-TUNNEL_TIMEOUT = 60
+TUNNEL_TIMEOUT = 90
 
 
 @pytest.fixture(scope="session")
@@ -15,21 +16,31 @@ def lab() -> VPNLab:
 @pytest.fixture(scope="session", autouse=True)
 def vpn_lab_session(lab: VPNLab) -> None:
     lab.compose("up", "-d", "--build")
-    _await_tunnel(lab, timeout=TUNNEL_TIMEOUT)
-    yield
-    lab.compose("down", "-v")
+    try:
+        _await_tunnel(lab, timeout=TUNNEL_TIMEOUT)
+        yield
+    finally:
+        lab.compose("down", "-v")
 
 
 def _await_tunnel(lab: VPNLab, timeout: int) -> None:
     deadline = time.time() + timeout
     while time.time() < deadline:
-        result = lab.exec(VPNLab.SITE_A, "ipsec status", check=False)
-        if result.returncode == 0 and "ESTABLISHED" in result.stdout:
-            _install_cross_site_routes(lab)
-            return
+        try:
+            result = lab.exec(VPNLab.SITE_A, "ipsec status", check=False, timeout=10)
+            if result.returncode == 0 and "ESTABLISHED" in result.stdout:
+                _install_cross_site_routes(lab)
+                return
+        except (subprocess.SubprocessError, OSError):
+            pass
         time.sleep(3)
 
-    status = lab.exec(VPNLab.SITE_A, "ipsec statusall", check=False).stdout
+    status = ""
+    try:
+        status = lab.exec(VPNLab.SITE_A, "ipsec statusall", check=False, timeout=10).stdout
+    except (subprocess.SubprocessError, OSError):
+        pass
+
     raise RuntimeError(
         f"VPN tunnel did not establish within {timeout}s.\n\nLast status:\n{status}"
     )

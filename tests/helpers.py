@@ -11,11 +11,9 @@ class VPNLab:
     SITE_A = "vpn-site-a"
     SITE_B = "vpn-site-b"
 
-    # WAN-facing IPs (used in traffic capture filters)
     SITE_A_WAN = "172.20.0.10"
     SITE_B_WAN = "172.20.0.20"
 
-    # LAN IPs (source addresses for cross-site pings)
     SITE_A_LAN = "10.1.0.1"
     SITE_B_LAN = "10.2.0.1"
 
@@ -35,10 +33,10 @@ class VPNLab:
         )
 
     @staticmethod
-    def compose(*args: str) -> subprocess.CompletedProcess:
-        return subprocess.run(
+    def compose(*args: str) -> None:
+        """Run a docker compose command, printing output directly to stdout/stderr
+        so CI logs capture the full Docker output on failure."""
+        subprocess.run(
             ["docker", "compose", "-f", str(COMPOSE_FILE), *args],
-            capture_output=True,
-            text=True,
             check=True,
         )

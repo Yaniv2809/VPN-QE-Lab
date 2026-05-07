@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +24,7 @@ jobs:
 
       - name: Run VPN Quality Gate
         run: pytest tests/ -v --alluredir=allure-results
+        timeout-minutes: 10
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v4

@@ -12,6 +12,7 @@ COPY ipsec.secrets /etc/ipsec.secrets
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod 600 /etc/ipsec.secrets && \
-    chmod +x /entrypoint.sh
+    chmod +x /entrypoint.sh && \
+    sed -i 's/\r//' /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
